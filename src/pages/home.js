@@ -14,6 +14,9 @@ const Home = () => {
     `${URL_API}/movie/popular?api_key=${API_KEY}&language=es-ES&page=1`
   );
 
+  const topRatedMovies = useFetch(`
+  ${URL_API}/movie/top_rated?api_key=${API_KEY}&language=en-US&page=1`);
+
   return (
     <>
       <SliderMovies movies={newMovies} />
@@ -21,7 +24,9 @@ const Home = () => {
         <Col span={12}>
           <MovieList title="Peliculas Populares" movies={popularMovies} />
         </Col>
-        <Col span={12}>....</Col>
+        <Col span={12}>
+          <MovieList title="Peliculas Mas Puntuadas" movies={topRatedMovies} />
+        </Col>
       </Row>
     </>
   );
