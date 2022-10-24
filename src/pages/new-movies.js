@@ -4,6 +4,7 @@ import { URL_API, API_KEY } from "../utils/constants";
 
 import Footer from "../components/Footer/index";
 import Loading from "../components/Loading/index";
+import MovieCatalog from "../components/MovieCatalog/MovieCatalog";
 
 const NewMovies = () => {
   const [movieList, setMovieList] = useState([]);
@@ -27,7 +28,9 @@ const NewMovies = () => {
         </h1>
       </Col>
       {movieList.results ? (
-        <Col span="24">Todas las peliculas... </Col>
+        <Col span="24">
+          <MovieCatalog movie={movieList} />
+        </Col>
       ) : (
         <Col span="24">
           <Loading />
