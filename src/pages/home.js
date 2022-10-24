@@ -4,6 +4,7 @@ import { Row, Col } from "antd";
 
 import MovieList from "../components/MovieList/MovieList";
 import SliderMovies from "../components/SliderMovies";
+import Footer from "../components/Footer/Footer";
 
 const Home = () => {
   const newMovies = useFetch(
@@ -28,6 +29,7 @@ const Home = () => {
           <MovieList title="Peliculas Mas Puntuadas" movies={topRatedMovies} />
         </Col>
       </Row>
+      <Footer />
     </>
   );
 };
