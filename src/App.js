@@ -1,6 +1,8 @@
 import { Routes, Route } from "react-router-dom";
 import { Layout } from "antd";
 
+import Menu from "./components/Menu";
+
 //pages
 import Home from "./pages/home";
 import Error404 from "./pages/error404";
@@ -14,7 +16,9 @@ function App() {
 
   return (
     <Layout>
-      <Header>Header....</Header>
+      <Header>
+        <Menu />
+      </Header>
 
       <Content>
         <Routes>
