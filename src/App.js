@@ -16,7 +16,7 @@ function App() {
 
   return (
     <Layout>
-      <Header>
+      <Header style={{ zIndex: 1 }}>
         <Menu />
       </Header>
       <Content>

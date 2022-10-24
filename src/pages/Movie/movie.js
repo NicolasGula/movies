@@ -24,12 +24,25 @@ export default Movie;
 
 const RenderMovie = (props) => {
   const {
-    movieInfo: { title },
+    movieInfo: { title, backdrop_path },
   } = props;
 
+  const backdropPath = `https://image.tmdb.org/t/p/original${backdrop_path}`;
+
   return (
-    <div>
-      <h1>Esta es la pelicula {title}</h1>
+    <div
+      className="movie"
+      style={{ backgroundImage: `url('${backdropPath}')` }}
+    >
+      <div className="movie__dark"></div>
+      <Row>
+        <Col span={8} offset={3} className="movie__poster">
+          Caratula...
+        </Col>
+        <Col span={10} className="movie__info">
+          Movie info...
+        </Col>
+      </Row>
     </div>
   );
 };
