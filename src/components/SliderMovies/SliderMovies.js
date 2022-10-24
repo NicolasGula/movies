@@ -25,7 +25,6 @@ const SliderMovies = (props) => {
 export default SliderMovies;
 
 const Movie = (props) => {
-  console.log(props);
   const {
     movie: { id, backdrop_path, title, overview },
   } = props;
