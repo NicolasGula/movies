@@ -16,7 +16,7 @@ const Home = () => {
   );
 
   const topRatedMovies = useFetch(`
-  ${URL_API}/movie/top_rated?api_key=${API_KEY}&language=en-US&page=1`);
+  ${URL_API}/movie/top_rated?api_key=${API_KEY}&language=es-ES&page=1`);
 
   return (
     <>

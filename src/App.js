@@ -6,7 +6,7 @@ import Menu from "./components/Menu";
 //pages
 import Home from "./pages/home";
 import Error404 from "./pages/error404";
-import Movie from "./pages/movie";
+import Movie from "./pages/Movie/index";
 import NewMovie from "./pages/new-movies";
 import Popular from "./pages/popular";
 import Search from "./pages/search";
@@ -19,7 +19,6 @@ function App() {
       <Header>
         <Menu />
       </Header>
-
       <Content>
         <Routes>
           <Route path="/" element={<Home />} />
