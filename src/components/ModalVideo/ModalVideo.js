@@ -6,6 +6,21 @@ import "./modalVideo.scss";
 
 const ModalVideo = (props) => {
   const { videoKey, videoPlatform, isOpen, close } = props;
+  const [urlVideo, setUrlVideo] = useState(null);
+
+  useEffect(() => {
+    switch (videoPlatform) {
+      case "YouTube":
+        setUrlVideo(`https//youtu.be/${videoKey}`);
+        break;
+      case "Vimeo":
+        setUrlVideo(`https//vimeo.com/${videoKey}`);
+        break;
+      default:
+        break;
+    }
+  }, [videoKey, videoPlatform]);
+
   return (
     <Modal
       className="modal-video"
@@ -13,8 +28,9 @@ const ModalVideo = (props) => {
       centered
       onCancel={close}
       footer={false}
+      destroyOnClose={true}
     >
-      Este es mi modal
+      <ReactPlayer url={urlVideo} controls />
     </Modal>
   );
 };
