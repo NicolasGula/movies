@@ -1,11 +1,15 @@
 import { Row, Col, Button } from "antd";
+import { PlayCircleOutlined } from "@ant-design/icons";
 import { useParams } from "react-router-dom";
 import moment from "moment";
 import useFetch from "../../hooks/useFetch";
 import { URL_API, API_KEY } from "../..//utils/constants";
 import Loading from "../../components/Loading/Loading";
+import ModalVideo from "../../components/ModalVideo";
 
 import "./movie.scss";
+import { useState } from "react";
+// import { render } from "node-sass";
 
 const Movie = () => {
   const { id } = useParams();
@@ -24,7 +28,7 @@ export default Movie;
 
 const RenderMovie = (props) => {
   const {
-    movieInfo: { title, backdrop_path },
+    movieInfo: { backdrop_path, poster_path },
   } = props;
 
   const backdropPath = `https://image.tmdb.org/t/p/original${backdrop_path}`;
@@ -37,12 +41,78 @@ const RenderMovie = (props) => {
       <div className="movie__dark"></div>
       <Row>
         <Col span={8} offset={3} className="movie__poster">
-          Caratula...
+          <PosterMovie image={poster_path} />
         </Col>
         <Col span={10} className="movie__info">
-          Movie info...
+          <MovieInfo movieInfo={props.movieInfo} />
         </Col>
       </Row>
     </div>
+  );
+};
+
+const PosterMovie = (props) => {
+  const { image } = props;
+  const posterPath = `https://image.tmdb.org/t/p/original${image}`;
+
+  return <div style={{ backgroundImage: `url('${posterPath}')` }} />;
+};
+
+const MovieInfo = (props) => {
+  const {
+    movieInfo: { id, title, release_date, overview, genres },
+  } = props;
+
+  const [isVisibleModal, setIsVisibleModal] = useState(false);
+
+  const videoMovie = useFetch(
+    `${URL_API}/movie/${id}/videos?api_key=${API_KEY}&language=es-ES`
+  );
+
+  const openModal = () => setIsVisibleModal(true);
+  const closeModal = () => setIsVisibleModal(false);
+
+  const renderVideo = () => {
+    if (videoMovie.result) {
+      if (videoMovie.result.results.length > 0) {
+        return (
+          <>
+            <Button icon={<PlayCircleOutlined />} onClick={openModal}>
+              Ver trailer
+            </Button>
+            <ModalVideo
+              videoKey={videoMovie.result.results[0].key}
+              videoPlatform={videoMovie.result.results[0].site}
+              isOpen={isVisibleModal}
+              close={closeModal}
+            />
+          </>
+        );
+      }
+    }
+  };
+
+  return (
+    <>
+      <div className="movie__info-header">
+        <h1>
+          {title}
+          <span> {moment(release_date, "YYYY-MM-DD").format("YYYY")}</span>
+        </h1>
+        {renderVideo()}
+        <ModalVideo />
+      </div>
+      <div className="movie__info-content">
+        <h3>General</h3>
+        <p>{overview}</p>
+
+        <h3>Generos</h3>
+        <ul>
+          {genres.map((genre) => (
+            <li key={genre.id}>{genre.name}</li>
+          ))}
+        </ul>
+      </div>
+    </>
   );
 };
